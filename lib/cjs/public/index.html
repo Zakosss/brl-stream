@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+        <script src="./jquery-3.7.1.min.js"></script>
+        <script src="./anime.min.js"></script>
+    </head>
+    <body class="p-10 h-screen flex">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="leaderboard" class="leaderboard w-80 absolute rounded-tl-3xl relative">
+            <div class="h-16 bg-gradient-to-t from-dark-100 to-dark-200 rounded-tl-3xl flex flex-col items-center justify-evenly p-2">
+                <img
+                    src="/img/BRL1.png"
+                    alt="BRL Logo"
+                    width=105
+                    height=105
+                />
+                <p class="text-xl font-bold">RACE</p>
+            </div>
+            <div class="h-16 bg-gradient-to-t from-dark-100 to-dark-200 flex flex-row items-center justify-evenly p-2.5 border-4 border-yellow-300 space-x-8 hidden">
+                <div id="scflash" class="flex-1 bg-yellow-300 h-full rounded-md"></div>
+                <p class="text-xl font-bold text-yellow-300">SAFETY CAR</p>
+                <div id="scflash" class="flex-1 bg-yellow-300 h-full rounded-md"></div>
+            </div>
+            <div class="h-8 bg-gradient-to-t from-dark-100 to-dark-200 content-center justify-center">
+                <h1 class="text-center text-xl font-bold">1/20</h1>
+            </div>
+        </div>
+        
+        <div class=" w-80 h-24 absolute self-start end-1/2 flex flex-col overflow-hidden translate-x-1/2 ">
+            <div class="h-8 bg-dark-200 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] space-x-2 flex flex-row items-center">
+                <div class="h-full aspect-square bg-dark-100 flex items-center justify-center p-1 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+                    <object type="image/svg+xml" data="./img/investigate.svg" class="flex-1 invert"></object>
+                </div>
+                <p class="flex-1 font-bold text-xl">PENALTY</p>
+            </div>
+            <div class="h-16 bg-dark-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+                
+            </div>
+        </div>
+
+        <div id="driverOverview" class="bg-gradient-to-t from-dark-100 to-dark-200 w-80 h-24 absolute self-end end-10 rounded-br-3xl flex flex-col overflow-hidden">
+            <div class="h-8 flex items-center space-x-2 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+                <div class="flex flex-row aspect-2 h-full">
+                    <div class="aspect-square bg-dark-100 flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] h-full">
+                        <p class="font-bold text-xl text-center">1</p>
+                    </div>
+                    <div class="aspect-square bg-dark-100 flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] h-full p-2">
+                        <object type="image/svg+xml" data="./img/teams/mclaren.svg" class="flex-1"></object>
+                    </div>
+                </div>
+                <p class="font-bold text-xl flex-1">driver</p>
+                <div class="flex flex-row h-full">
+                    <div class="aspect-2 bg-dark-100 self-center flex-1 flex justify-center items-center h-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]">
+                        <p class="font-bold text-sm">1:22.750</p>
+                    </div>
+                    <div class="aspect-square bg-dark-100 flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] h-full p-1">
+                        <object type="image/svg+xml" data="./img/tyres/soft.svg" class="flex-1"></object>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-2 flex flex-row">
+                <div class="flex-1 bg-dark-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] flex flex-col">
+                    <div class="self-center flex-1 flex justify-center items-center flex-col space-y-0.5">
+                        <p class="font-bold text-md">30.221</p>
+                        <p class="font-bold text-sm">+0.900</p>
+                    </div>
+                    <div class="flex-1 max-h-3 bg-gray-400 h-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"></div>
+                </div>
+                <div class="flex-1 bg-dark-300 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] flex flex-col">
+                    <div class="self-center flex-1 flex justify-center items-center flex-col space-y-0.5">
+                        <p class="font-bold text-md">23.265</p>
+                        <p class="font-bold text-sm">+0.900</p>
+                    </div>
+                    <div class="flex-1 max-h-3 bg-gray-400 h-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"></div>
+                </div>
+                <div class="flex-1 bg-dark-300 rounded-br-3xl shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] flex flex-col">
+                    <div class="self-center flex-1 flex justify-center items-center flex-col space-y-0.5">
+                        <p class="font-bold text-md">29.264</p>
+                        <p class="font-bold text-sm">+0.900</p>
+                    </div>
+                    <div class="flex-1 max-h-3 bg-gray-400 h-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./main.js" async defer></script>
+    </body>
+</html>
