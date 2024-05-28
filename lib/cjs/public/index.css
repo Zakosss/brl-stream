@@ -2002,11 +2002,6 @@ video {
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
-.bg-yellow-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 224 71 / var(--tw-bg-opacity));
-}
-
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
 }
@@ -2683,13 +2678,25 @@ video {
   a-z-a--z0-9: \\-\\. $;
 }
 
+:root {
+  --flag1: rgb(253, 224, 71);
+  --flag2: rgb(253, 224, 71);
+}
+
 * {
   color: white;
 }
 
-#flash {
+#flash1 {
+  background-color: var(--flag1);
   box-shadow:
-        0 0 10px 5px rgb(253, 224, 71);
+        0 0 10px 5px var(--flag1);
+}
+
+#flash2 {
+  background-color: var(--flag2);
+  box-shadow:
+        0 0 10px 5px var(--flag2);
 }
 
 #fastestlap {

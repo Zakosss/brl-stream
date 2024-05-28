@@ -14,6 +14,7 @@ app.ws('/', (_ws, _req) => {
 })
 
 import { F1TelemetryClient, constants, packetTypes } from "@deltazeroproduction/f1-udp-parser";
+import { RULESETS, SAFETY_CAR_STATUSES, SESSION_TYPES } from "@deltazeroproduction/f1-udp-parser/build/src/constants";
 const { PACKETS, NATIONALITIES, TEAMS, TYRES } = constants
 
 const VISUAL_TYRES: {[key: number]: typeof TYRES[number]} = {
@@ -26,14 +27,6 @@ const VISUAL_TYRES: {[key: number]: typeof TYRES[number]} = {
 }
 
 const client = new F1TelemetryClient({port: 20777})
-
-client.on(PACKETS.lapData, (data: packetTypes.PacketLapData) => {
-    let lapData = data.m_lapData
-  
-    lapData.forEach(_data => {
-        
-    });
-})
 
 interface ParticipantData {
     [key: number]: {
@@ -59,6 +52,28 @@ client.on(PACKETS.participants, (data: packetTypes.PacketParticipantsData) => {
 
     sendData('participants', simpleParticipants)
     sendData('participantCount', data.m_numActiveCars)
+})
+
+interface SessionData {
+    safetyCarStatus: typeof SAFETY_CAR_STATUSES[number]
+    totalLaps: number
+    sessionTimeLeft: number
+    totalDuration: number
+    sessionType: typeof SESSION_TYPES[number]
+    ruleset: typeof RULESETS[number]
+}
+
+client.on(PACKETS.session, (data: packetTypes.PacketSessionData) => {
+    var sessionData: SessionData = {
+        safetyCarStatus: SAFETY_CAR_STATUSES[data.m_safetyCarStatus],
+        sessionType: SESSION_TYPES[data.m_sessionType],
+        totalLaps: data.m_totalLaps,
+        sessionTimeLeft: data.m_sessionTimeLeft,
+        totalDuration: data.m_sessionDuration,
+        ruleset: RULESETS[data.m_ruleSet]
+    }
+
+    sendData("sessionData", sessionData)
 })
 
 /*
@@ -94,7 +109,8 @@ interface LapData {
         position: number,
         gap: number,
         interval: number,
-        sector: number
+        sector: number,
+        pitStatus: number
     }
 }
 
@@ -110,7 +126,8 @@ client.on(PACKETS.lapData, (data: packetTypes.PacketLapData) => {
             position: lapData.m_carPosition,
             gap: lapData.m_deltaToRaceLeaderInMS,
             interval: lapData.m_deltaToCarInFrontInMS,
-            sector: lapData.m_sector
+            sector: lapData.m_sector,
+            pitStatus: lapData.m_pitStatus
         }
     })
 
@@ -126,12 +143,11 @@ interface Lap {
 
 interface HistoryData {
     vehicleIndex: number,
-   
     bestTimes?: Lap
-
     currentTimes: Lap
-
     lastTimes?: Lap
+
+    lapNum: number
 }
 
 client.on(PACKETS.sessionHistory, (data: packetTypes.PacketSessionHistoryData) => {
@@ -145,7 +161,9 @@ client.on(PACKETS.sessionHistory, (data: packetTypes.PacketSessionHistoryData) =
             sector1: data.m_lapHistoryData[numLaps-1].m_sector1TimeInMS,
             sector2: data.m_lapHistoryData[numLaps-1].m_sector2TimeInMS,
             sector3: data.m_lapHistoryData[numLaps-1].m_sector3TimeInMS
-        }
+        },
+
+        lapNum: data.m_numLaps
     }
 
     if (!(data.m_bestLapTimeLapNum == 0)) {
@@ -156,11 +174,13 @@ client.on(PACKETS.sessionHistory, (data: packetTypes.PacketSessionHistoryData) =
             sector3: data.m_lapHistoryData[data.m_bestSector3LapNum-1].m_sector3TimeInMS
         }
 
-        historyData.lastTimes = {
-            total: data.m_lapHistoryData[numLaps-2].m_lapTimeInMS,
-            sector1: data.m_lapHistoryData[numLaps-2].m_sector1TimeInMS,
-            sector2: data.m_lapHistoryData[numLaps-2].m_sector2TimeInMS,
-            sector3: data.m_lapHistoryData[numLaps-2].m_sector3TimeInMS
+        if (!(data.m_lapHistoryData[numLaps-2] === undefined)) {
+            historyData.lastTimes = {
+                total: data.m_lapHistoryData[numLaps-2].m_lapTimeInMS,
+                sector1: data.m_lapHistoryData[numLaps-2].m_sector1TimeInMS,
+                sector2: data.m_lapHistoryData[numLaps-2].m_sector2TimeInMS,
+                sector3: data.m_lapHistoryData[numLaps-2].m_sector3TimeInMS
+            }
         }
     }
 

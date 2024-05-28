@@ -2,13 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --flag1: rgb(253, 224, 71);
+    --flag2: rgb(253, 224, 71);
+}
+
 * {
     color: white;
 }
 
-#flash {
+#flash1 {
+    background-color: var(--flag1);
     box-shadow:
-        0 0 10px 5px rgb(253, 224, 71);
+        0 0 10px 5px var(--flag1);
+       
+}
+
+#flash2 {
+    background-color: var(--flag2);
+    box-shadow:
+        0 0 10px 5px var(--flag2);
        
 }
 
