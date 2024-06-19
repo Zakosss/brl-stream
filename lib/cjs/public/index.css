@@ -934,6 +934,10 @@ video {
   width: 100%;
 }
 
+.max-w-16 {
+  max-width: 4rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1962,11 +1966,6 @@ video {
   border-style: none;
 }
 
-.border-yellow-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(253 224 71 / var(--tw-border-opacity));
-}
-
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
@@ -2697,6 +2696,16 @@ video {
   background-color: var(--flag2);
   box-shadow:
         0 0 10px 5px var(--flag2);
+}
+
+#status {
+  --tw-border-opacity: 1;
+  border-color: var(--flag1);
+}
+
+#safetyCarText {
+  --tw-text-opacity: 1;
+  color: var(--flag1);
 }
 
 #fastestlap {

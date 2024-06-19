@@ -179,7 +179,7 @@ client.on(PACKETS.sessionHistory, (data: packetTypes.PacketSessionHistoryData) =
                 total: data.m_lapHistoryData[numLaps-2].m_lapTimeInMS,
                 sector1: data.m_lapHistoryData[numLaps-2].m_sector1TimeInMS,
                 sector2: data.m_lapHistoryData[numLaps-2].m_sector2TimeInMS,
-                sector3: data.m_lapHistoryData[numLaps-2].m_sector3TimeInMS
+                sector3: data.m_lapHistoryData[numLaps-2].m_sector3TimeInMS,
             }
         }
     }
